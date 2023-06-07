@@ -8,8 +8,6 @@ import {
   rem,
   Image,
 } from "@mantine/core";
-// import CaseBanner from "@/assets/casebanner.png";
-import TesAvatar from "@/assets/tesAvatar.png";
 import FooterImage from "@/assets/footerImage.png";
 
 const useStyles = createStyles((theme) => ({
@@ -110,8 +108,6 @@ export function FooterBanner() {
               <Grid.Col md={4} lg={4}>
                 <Image
                   className={classes.imageStyle}
-                  //   height={350}
-                  //   width={350}
                   src={FooterImage.src}
                   alt="Random image from unsplash"
                   withPlaceholder

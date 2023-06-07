@@ -25,8 +25,6 @@ import {
   IconCoin,
   IconChevronDown,
 } from "@tabler/icons-react";
-// import Logo from "@/assets/logo-text.png";
-// import LogoNav from "@/assets/logo.png";
 import Image from "next/image";
 
 const useStyles = createStyles((theme) => ({
@@ -186,8 +184,6 @@ export default function Navbar() {
       <Container size={1200}>
         <Header height={70} className={classes.head}>
           <Group position="apart" sx={{ height: "100%" }}>
-            {/* <img src={Logo.src} alt="logo-text" className={classes.logo_text} /> */}
-
             <Text size="lg" fw={500}>
               Chatter
             </Text>

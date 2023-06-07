@@ -12,8 +12,8 @@ const useStyles = createStyles((theme) => ({
   wrapper: {
     position: "relative",
     marginTop: rem(70),
-    paddingTop: rem(180),
-    paddingBottom: rem(180),
+    paddingTop: rem(200),
+    paddingBottom: rem(200),
     backgroundImage:
       "url(https://res.cloudinary.com/eworldtech/image/upload/c_scale,q_auto:eco,w_1440/v1686142596/unsplash_-2vD8lIhdnw_o17pou.png)",
     backgroundSize: "cover",

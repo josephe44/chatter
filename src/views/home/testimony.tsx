@@ -1,5 +1,4 @@
 import {
-  Title,
   Text,
   Container,
   Button,
@@ -8,7 +7,6 @@ import {
   rem,
   Image,
 } from "@mantine/core";
-// import CaseBanner from "@/assets/casebanner.png";
 import TesAvatar from "@/assets/tesAvatar.png";
 
 const useStyles = createStyles((theme) => ({

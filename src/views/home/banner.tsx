@@ -79,11 +79,11 @@ export function Banner({ isReverse, item }: any) {
           >
             <Card.Section>
               <Image
-                src="https://media.istockphoto.com/id/1040250650/photo/white-studio-background.jpg?s=612x612&w=0&k=20&c=2sLiCR3BQxRmc6i2phThD3qtfaMGabNGgZAHkSTlofk="
+                src="https://res.cloudinary.com/eworldtech/image/upload/c_scale,h_612,w_612/v1686146510/unsplash_87gLIFoj79c_hrum0x.png"
                 height={300}
                 alt="Random image from unsplash"
                 withPlaceholder
-                placeholder="https://images.unsplash.com/photo-1612837017391-4b6b7e9b0b0f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmxvZyUyMGJsb2d8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
+                placeholder="banner-image"
               />
             </Card.Section>
           </Card>
