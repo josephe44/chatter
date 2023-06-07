@@ -9,13 +9,13 @@ import { FooterBanner } from "@/views/home/footerBanner";
 
 const Home = () => {
   return (
-    <Fragment>
+    <div style={{ width: "100%" }}>
       <Hero />
       <Banner />
       <Features />
       <Testimony />
       <FooterBanner />
-    </Fragment>
+    </div>
   );
 };
 

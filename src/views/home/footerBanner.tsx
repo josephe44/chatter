@@ -106,7 +106,7 @@ export function FooterBanner() {
       <div className={classes.wrapper}>
         <Container size="1000px">
           <div className={classes.inner}>
-            <Grid px="xl" gutter={80}>
+            <Grid px="xl" gutterMd={50}>
               <Grid.Col md={4} lg={4}>
                 <Image
                   className={classes.imageStyle}

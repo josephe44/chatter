@@ -13,11 +13,11 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     marginTop: rem(70),
     paddingTop: rem(180),
-    paddingBottom: rem(130),
+    paddingBottom: rem(180),
     backgroundImage:
-      "url(https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=980&q=80)",
+      "url(https://res.cloudinary.com/eworldtech/image/upload/c_scale,q_auto:eco,w_1440/v1686142596/unsplash_-2vD8lIhdnw_o17pou.png)",
     backgroundSize: "cover",
-    backgroundPosition: "center",
+    // backgroundPosition: "center",
 
     [theme.fn.smallerThan("xs")]: {
       paddingTop: rem(80),

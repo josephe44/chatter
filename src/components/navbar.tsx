@@ -234,7 +234,6 @@ export default function Navbar() {
         onClose={closeDrawer}
         title={
           <>
-            {/* <Image src={LogoNav.src} alt="" width={30} height={25} /> */}
             <Text size="lg" fw={500}>
               Chatter
             </Text>
@@ -248,22 +247,14 @@ export default function Navbar() {
             Home
           </a>
           <a href="#" className={classes.link}>
-            About
+            About Us
           </a>
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
-            <Center inline>
-              <Box component="span" mr={5}>
-                Use Cases
-              </Box>
-              <IconChevronDown size={16} color={theme.colors.recurrent[0]} />
-            </Center>
-          </UnstyledButton>
-          <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="#" className={classes.link}>
-            Learn
-          </a>
+
           <a href="#" className={classes.link}>
             Contact
+          </a>
+          <a href="#" className={classes.link}>
+            Blog
           </a>
           <Group position="center" grow pb="xl" px="md">
             <Button className={classes.control2} variant="default">
