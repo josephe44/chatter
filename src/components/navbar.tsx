@@ -210,9 +210,15 @@ export default function Navbar() {
               </Link>
             </Group>
             <Group className={classes.hiddenMobile}>
-              <Button className={classes.control2} variant="default" fw="bold">
-                Log in
-              </Button>
+              <Link href="/auth/login" className={classes.link}>
+                <Button
+                  className={classes.control2}
+                  variant="default"
+                  fw="bold"
+                >
+                  Log in
+                </Button>
+              </Link>
               <Button className={classes.control} fw="bold">
                 Sign up
               </Button>
