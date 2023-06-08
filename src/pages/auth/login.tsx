@@ -56,12 +56,17 @@ const useStyles = createStyles((theme) => ({
   },
 
   form: {
-    // minHeight: "100vh",
     padding: "0 15px",
     maxWidth: rem(600),
     paddingTop: rem(10),
+    [theme.fn.smallerThan("md")]: {
+      maxWidth: rem(500),
+    },
     [theme.fn.smallerThan("sm")]: {
-      maxWidth: "100%",
+      maxWidth: rem(400),
+    },
+    [theme.fn.smallerThan("xs")]: {
+      maxWidth: rem(300),
     },
   },
 
@@ -125,6 +130,17 @@ const useStyles = createStyles((theme) => ({
     justifyContent: "center",
     flexDirection: "column",
   },
+
+  tabWidth: {
+    width: rem(200),
+
+    [theme.fn.smallerThan("md")]: {
+      width: rem(150),
+    },
+    [theme.fn.smallerThan("sm")]: {
+      width: rem(100),
+    },
+  },
 }));
 
 const server = process.env.NEXT_PUBLIC_DB_HOST;
@@ -178,10 +194,10 @@ export default function Register() {
         <Grid.Col sm={12} md={7}>
           <Tabs defaultValue="login" className={classes.tabStyle} my={40}>
             <Tabs.List>
-              <Tabs.Tab value="login" w={200}>
+              <Tabs.Tab value="login" className={classes.tabWidth}>
                 Login
               </Tabs.Tab>
-              <Tabs.Tab value="register" w={200}>
+              <Tabs.Tab value="register" className={classes.tabWidth}>
                 Register
               </Tabs.Tab>
             </Tabs.List>
