@@ -77,10 +77,10 @@ const useStyles = createStyles((theme) => ({
     height: rem(42),
     fontSize: theme.fontSizes.md,
     color: "#fff",
-    background: theme.colors.recurrent[0],
+    background: theme.colors.chatter[0],
 
     "&:hover": {
-      backgroundColor: theme.colors.recurrent[0],
+      backgroundColor: theme.colors.chatter[0],
     },
 
     "&:not(:first-of-type)": {

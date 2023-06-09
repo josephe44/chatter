@@ -84,10 +84,10 @@ const useStyles = createStyles((theme) => ({
 
   secondaryControl: {
     color: theme.white,
-    backgroundColor: theme.colors.recurrent[0],
+    backgroundColor: theme.colors.chatter[0],
 
     "&:hover": {
-      backgroundColor: theme.colors.recurrent[0],
+      backgroundColor: theme.colors.chatter[0],
     },
 
     [theme.fn.smallerThan("xs")]: {

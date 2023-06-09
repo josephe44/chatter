@@ -15,10 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
         colorScheme: "light",
         fontFamily: "Plus Jakarta Sans",
         colors: {
-          recurrent: [...colors.recurrent],
-          recurrentDark: [...colors.recurrentDark],
-          recurrentSecondary: [...colors.recurrentSecondary],
-          recurrentGrey: [...colors.recurrentGrey],
+          chatter: [...colors.chatter],
         },
         defaultRadius: 2,
       }}

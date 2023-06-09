@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Router from "next/router";
 import { useForm } from "@mantine/form";
 import {
   Paper,
@@ -30,14 +28,10 @@ import {
 
 import { loginValues } from "@/utils/form";
 import { loginValidator } from "@/utils/validators";
-
-// import Logo from "@/assets/images/logo-text.png";
-// import DashboardImg from "@/assets/images/dashboard.png";
 import { colors } from "@/constants/theme";
 import { IconAlertCircle } from "@tabler/icons-react";
 
 import HeadMeta from "@/components/head";
-import { GetServerSideProps } from "next";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -89,7 +83,7 @@ const useStyles = createStyles((theme) => ({
     minHeight: "100vh",
     paddingTop: rem(100),
     paddingLeft: rem(65),
-    background: theme.colors.recurrent[4],
+    background: theme.colors.chatter[4],
     display: "flex",
     flexDirection: "column",
   },
@@ -129,6 +123,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
+    // borderColor: theme.colors.chatter[0],
   },
 
   tabWidth: {
@@ -140,6 +135,10 @@ const useStyles = createStyles((theme) => ({
     [theme.fn.smallerThan("sm")]: {
       width: rem(100),
     },
+  },
+
+  btnStyle: {
+    background: theme.colors.chatter[0],
   },
 }));
 
@@ -168,14 +167,6 @@ export default function Register() {
         <Grid.Col className={classes.hidden} sm={12} md={5}>
           <div className={classes.imageContainer}>
             <Overlay color="#000" opacity={0.59} zIndex={1} />
-            {/* <Image
-              height="100vh"
-              width="100%"
-              withPlaceholder
-              placeholder="login-image"
-              src="https://res.cloudinary.com/eworldtech/image/upload/v1686225360/unsplash_9pjBx5uVBlg_hmxuv9.png"
-              alt="login_bg"
-            /> */}
 
             <Flex align="center" justify="center" className={classes.textStyle}>
               <Text c="white" fz={40} fw="bolder" ta="center">
@@ -192,7 +183,12 @@ export default function Register() {
         </Grid.Col>
 
         <Grid.Col sm={12} md={7}>
-          <Tabs defaultValue="login" className={classes.tabStyle} my={40}>
+          <Tabs
+            color="green"
+            defaultValue="login"
+            className={classes.tabStyle}
+            my={40}
+          >
             <Tabs.List>
               <Tabs.Tab value="login" className={classes.tabWidth}>
                 Login
@@ -260,23 +256,16 @@ export default function Register() {
                       error={form.errors.password && form.errors.password}
                     />
 
-                    <Checkbox
-                      c={colors.recurrent[0]}
-                      label="Remember Me"
+                    <Button
+                      fullWidth
                       mt="xl"
-                      size="xs"
-                    />
-
-                    <Button fullWidth mt="xl" size="md" onClick={handleSubmit}>
+                      size="md"
+                      onClick={handleSubmit}
+                      className={classes.btnStyle}
+                      radius="sm"
+                    >
                       Login
                     </Button>
-
-                    <Divider label="OR" labelPosition="center" my="lg" />
-
-                    <Text mt="xl" size="xs" ta="center">
-                      Don&nbsp;t have an account?{" "}
-                      <Link href="/auth/register">Register</Link>
-                    </Text>
                   </Box>
                 </Paper>
               </Center>

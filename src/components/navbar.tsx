@@ -118,7 +118,7 @@ const useStyles = createStyles((theme) => ({
   },
   control: {
     color: "#fff",
-    background: theme.colors.recurrent[0],
+    background: theme.colors.chatter[0],
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
     width: rem(120),
@@ -126,11 +126,11 @@ const useStyles = createStyles((theme) => ({
     borderRadius: theme.radius.md,
 
     "&:hover": {
-      backgroundColor: theme.colors.recurrent[0],
+      backgroundColor: theme.colors.chatter[0],
     },
   },
   control2: {
-    border: `1px solid ${theme.colors.recurrent[0]}`,
+    border: `1px solid ${theme.colors.chatter[0]}`,
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
     background: "none",
@@ -168,7 +168,7 @@ export default function Navbar() {
     <UnstyledButton className={classes.subLink} key={item.title}>
       <Group noWrap align="flex-start">
         <ThemeIcon size={24} variant="default" radius="md">
-          <item.icon size={rem(22)} color={theme.colors.recurrent[0]} />
+          <item.icon size={rem(22)} color={theme.colors.chatter[0]} />
         </ThemeIcon>
         <Link href={item.link} className={classes.link}>
           <Text size="sm" fw={500}>
