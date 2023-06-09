@@ -54,10 +54,10 @@ const useStyles = createStyles((theme) => ({
     maxWidth: rem(600),
     paddingTop: rem(10),
     [theme.fn.smallerThan("md")]: {
-      maxWidth: rem(500),
+      maxWidth: rem(600),
     },
     [theme.fn.smallerThan("sm")]: {
-      maxWidth: rem(400),
+      maxWidth: rem(500),
     },
     [theme.fn.smallerThan("xs")]: {
       maxWidth: rem(300),
@@ -65,7 +65,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   innerForm: {
-    width: "400px",
+    width: "500px",
     [theme.fn.smallerThan("md")]: {
       maxWidth: "100%",
     },
@@ -139,6 +139,10 @@ const useStyles = createStyles((theme) => ({
 
   btnStyle: {
     background: theme.colors.chatter[0],
+
+    "&:hover": {
+      backgroundColor: theme.colors.chatter[0],
+    },
   },
 }));
 
