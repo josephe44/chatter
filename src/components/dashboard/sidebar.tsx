@@ -1,0 +1,312 @@
+import {
+  createStyles,
+  Navbar,
+  TextInput,
+  Code,
+  UnstyledButton,
+  Badge,
+  Text,
+  Group,
+  ActionIcon,
+  Tooltip,
+  rem,
+} from "@mantine/core";
+import {
+  IconSmartHome,
+  IconWallet,
+  IconFileInvoice,
+  IconCreditCard,
+  IconUser,
+  IconBell,
+  IconSettings,
+  IconLogout,
+} from "@tabler/icons-react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+const useStyles = createStyles((theme) => ({
+  navbar: {
+    paddingTop: 0,
+
+    [theme.fn.smallerThan("sm")]: {
+      transform: "translateX(-100%)",
+      transition: "transform 500ms ease",
+    },
+  },
+
+  openNavbar: {
+    [theme.fn.smallerThan("sm")]: {
+      transform: "translateX(0)",
+      transition: "transform 500ms ease",
+    },
+  },
+
+  section: {
+    marginLeft: `calc(${theme.spacing.xs} * -1)`,
+    marginRight: `calc(${theme.spacing.md} * -1)`,
+    marginBottom: theme.spacing.md,
+
+    "&:not(:last-of-type)": {
+      borderBottom: `${rem(1)} solid ${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[4]
+          : theme.colors.gray[3]
+      }`,
+    },
+  },
+
+  mainLinks: {
+    paddingLeft: `calc(${theme.spacing.md} - ${theme.spacing.xs})`,
+    paddingRight: `calc(${theme.spacing.md} - ${theme.spacing.xs})`,
+    paddingBottom: theme.spacing.md,
+  },
+
+  mainLink: {
+    display: "flex",
+    alignItems: "center",
+    width: 165,
+    fontSize: theme.fontSizes.xs,
+    marginLeft: 20,
+    padding: `${rem(14)} ${theme.spacing.xs}`,
+    borderRadius: theme.radius.sm,
+    fontWeight: 600,
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+
+    "&:hover": {
+      backgroundColor: theme.colors.chatter[4],
+      color: theme.colors.chatter[0],
+    },
+  },
+
+  mainLinkInner: {
+    display: "flex",
+    alignItems: "center",
+    flex: 1,
+  },
+
+  mainLinkIcon: {
+    marginRight: theme.spacing.sm,
+    color:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[2]
+        : theme.colors.gray[6],
+  },
+
+  mainLinkBadge: {
+    padding: 0,
+    width: rem(20),
+    height: rem(20),
+    pointerEvents: "none",
+  },
+
+  collectionsHeader: {
+    paddingLeft: `calc(${theme.spacing.md} + ${rem(2)})`,
+    paddingRight: theme.spacing.md,
+    marginBottom: rem(5),
+  },
+
+  customFlex: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%",
+  },
+
+  activeState: {
+    backgroundColor: theme.colors.chatter[4],
+    color: theme.colors.chatter[0],
+  },
+}));
+
+const general = [
+  { icon: IconSmartHome, label: "Dashboard", notifications: 3, path: "/" },
+];
+
+const payments = [
+  { icon: IconWallet, label: "Wallets", notifications: 4, path: "/wallets" },
+  {
+    icon: IconFileInvoice,
+    label: "Invoices",
+    notifications: 3,
+    path: "/invoices",
+  },
+  {
+    icon: IconCreditCard,
+    label: "Payment Links",
+    notifications: 4,
+    path: "/payment",
+  },
+];
+
+const customer = [
+  { icon: IconUser, label: "Customers", notifications: 3, path: "/customers" },
+];
+
+const account = [
+  { icon: IconUser, label: "Profile", notifications: 3, path: "/profile" },
+  { icon: IconSettings, label: "Settings", path: "/settings" },
+];
+
+const other = [{ icon: IconLogout, label: "Log Out" }];
+
+export function NavbarSearch({
+  opened,
+  setOpened,
+}: {
+  opened: boolean;
+  setOpened: (opened: boolean) => void;
+}) {
+  const router = useRouter();
+  const { classes } = useStyles();
+
+  // Gennral Links
+  const generalLinks = general.map((link) => (
+    <Link href={link.path} key={link.path}>
+      <UnstyledButton
+        mb={20}
+        key={link.label}
+        className={
+          router.pathname === link.path
+            ? `${classes.mainLink} ${classes.activeState}`
+            : `${classes.mainLink}`
+        }
+      >
+        <div className={classes.mainLinkInner}>
+          <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
+          <span>{link.label}</span>
+        </div>
+      </UnstyledButton>
+    </Link>
+  ));
+
+  // Payments Links
+  const paymentsLinks = payments.map((link) => (
+    <Link href={link.path} key={link.path}>
+      <UnstyledButton
+        key={link.label}
+        className={
+          router.pathname === link.path
+            ? `${classes.mainLink} ${classes.activeState}`
+            : `${classes.mainLink}`
+        }
+      >
+        <div className={classes.mainLinkInner}>
+          <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
+          <span>{link.label}</span>
+        </div>
+      </UnstyledButton>
+    </Link>
+  ));
+
+  // Customer Links
+  const customerLinks = customer.map((link) => (
+    <Link href={link.path} key={link.path}>
+      <UnstyledButton
+        mb={20}
+        key={link.label}
+        className={
+          router.pathname === link.path
+            ? `${classes.mainLink} ${classes.activeState}`
+            : `${classes.mainLink}`
+        }
+      >
+        <div className={classes.mainLinkInner}>
+          <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
+          <span>{link.label}</span>
+        </div>
+      </UnstyledButton>
+    </Link>
+  ));
+
+  // Account Links
+  const accountLinks = account.map((link) => (
+    <Link href={link.path} key={link.path}>
+      <UnstyledButton
+        key={link.label}
+        className={
+          router.pathname === link.path
+            ? `${classes.mainLink} ${classes.activeState}`
+            : `${classes.mainLink}`
+        }
+      >
+        <div className={classes.mainLinkInner}>
+          <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
+          <span>{link.label}</span>
+        </div>
+      </UnstyledButton>
+    </Link>
+  ));
+
+  // Other Links
+  const otherLinks = other.map((link) => (
+    <UnstyledButton key={link.label} className={classes.mainLink}>
+      <div className={classes.mainLinkInner}>
+        <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
+        <span>{link.label}</span>
+      </div>
+    </UnstyledButton>
+  ));
+
+  return (
+    <Navbar
+      height="100%"
+      width={{ sm: 250, md: 250 }}
+      p="md"
+      className={opened ? `${classes.openNavbar}` : `${classes.navbar}`}
+    >
+      <div className={classes.customFlex}>
+        <div>
+          {/* GENERAL */}
+          <Navbar.Section className={classes.section}>
+            <Group className={classes.collectionsHeader} position="apart">
+              <Text size="xs" weight={500} color="dimmed">
+                GENERAL
+              </Text>
+            </Group>
+            <div className={classes.mainLinks}>{generalLinks}</div>
+          </Navbar.Section>
+
+          {/* PAYMENTS */}
+          <Navbar.Section className={classes.section}>
+            <Group className={classes.collectionsHeader} position="apart">
+              <Text size="xs" weight={500} color="dimmed">
+                FINANCE
+              </Text>
+            </Group>
+            <div className={classes.mainLinks}>{paymentsLinks}</div>
+          </Navbar.Section>
+
+          {/* Customer */}
+
+          <Navbar.Section className={classes.section}>
+            <Group className={classes.collectionsHeader} position="apart">
+              <Text size="xs" weight={500} color="dimmed">
+                CLIENTS
+              </Text>
+            </Group>
+            <div className={classes.mainLinks}>{customerLinks}</div>
+          </Navbar.Section>
+
+          {/* ACCOUNT */}
+
+          <Navbar.Section className={classes.section}>
+            <Group className={classes.collectionsHeader} position="apart">
+              <Text size="xs" weight={500} color="dimmed">
+                ACCOUNT
+              </Text>
+            </Group>
+            <div className={classes.mainLinks}>{accountLinks}</div>
+          </Navbar.Section>
+        </div>
+
+        {/* Other */}
+        <Navbar.Section className={classes.section} mb={40}>
+          <div className={classes.mainLinks}>{otherLinks}</div>
+        </Navbar.Section>
+      </div>
+    </Navbar>
+  );
+}
