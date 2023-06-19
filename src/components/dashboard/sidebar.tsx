@@ -45,14 +45,6 @@ const useStyles = createStyles((theme) => ({
     marginLeft: `calc(${theme.spacing.xs} * -1)`,
     marginRight: `calc(${theme.spacing.md} * -1)`,
     marginBottom: theme.spacing.md,
-
-    "&:not(:last-of-type)": {
-      borderBottom: `${rem(1)} solid ${
-        theme.colorScheme === "dark"
-          ? theme.colors.dark[4]
-          : theme.colors.gray[3]
-      }`,
-    },
   },
 
   mainLinks: {
@@ -67,16 +59,16 @@ const useStyles = createStyles((theme) => ({
     width: 165,
     fontSize: theme.fontSizes.xs,
     marginLeft: 20,
-    padding: `${rem(14)} ${theme.spacing.xs}`,
+    padding: `${rem(4)} ${theme.spacing.xs}`,
     borderRadius: theme.radius.sm,
-    fontWeight: 600,
+    fontWeight: 500,
     color:
       theme.colorScheme === "dark"
         ? theme.colors.dark[0]
         : theme.colors.gray[7],
 
     "&:hover": {
-      backgroundColor: theme.colors.chatter[4],
+      // backgroundColor: theme.colors.chatter[4],
       color: theme.colors.chatter[0],
     },
   },
@@ -122,32 +114,24 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const general = [
-  { icon: IconSmartHome, label: "Dashboard", notifications: 3, path: "/" },
+  { icon: IconSmartHome, label: "Feed", path: "/" },
+  { icon: IconSmartHome, label: "Bookmarks", path: "/" },
+  { icon: IconSmartHome, label: "Team blogs", path: "/" },
+  { icon: IconSmartHome, label: "Drafts", path: "/" },
+  { icon: IconSmartHome, label: "Analytics", path: "/" },
 ];
 
 const payments = [
-  { icon: IconWallet, label: "Wallets", notifications: 4, path: "/wallets" },
-  {
-    icon: IconFileInvoice,
-    label: "Invoices",
-    notifications: 3,
-    path: "/invoices",
-  },
-  {
-    icon: IconCreditCard,
-    label: "Payment Links",
-    notifications: 4,
-    path: "/payment",
-  },
-];
-
-const customer = [
-  { icon: IconUser, label: "Customers", notifications: 3, path: "/customers" },
+  { icon: IconSmartHome, label: "Programming", path: "/" },
+  { icon: IconSmartHome, label: "Data science", path: "/" },
+  { icon: IconSmartHome, label: "Technology", path: "/" },
+  { icon: IconSmartHome, label: "Machine learning", path: "/" },
+  { icon: IconSmartHome, label: "Politics", path: "/" },
 ];
 
 const account = [
-  { icon: IconUser, label: "Profile", notifications: 3, path: "/profile" },
-  { icon: IconSettings, label: "Settings", path: "/settings" },
+  { icon: IconUser, label: "Account", notifications: 3, path: "/profile" },
+  { icon: IconSettings, label: "Notifications", path: "/settings" },
 ];
 
 const other = [{ icon: IconLogout, label: "Log Out" }];
@@ -162,11 +146,10 @@ export function NavbarSearch({
   const router = useRouter();
   const { classes } = useStyles();
 
-  // Gennral Links
+  // overview Links
   const generalLinks = general.map((link) => (
     <Link href={link.path} key={link.path}>
       <UnstyledButton
-        mb={20}
         key={link.label}
         className={
           router.pathname === link.path
@@ -182,7 +165,7 @@ export function NavbarSearch({
     </Link>
   ));
 
-  // Payments Links
+  // Trending tags Links
   const paymentsLinks = payments.map((link) => (
     <Link href={link.path} key={link.path}>
       <UnstyledButton
@@ -201,27 +184,7 @@ export function NavbarSearch({
     </Link>
   ));
 
-  // Customer Links
-  const customerLinks = customer.map((link) => (
-    <Link href={link.path} key={link.path}>
-      <UnstyledButton
-        mb={20}
-        key={link.label}
-        className={
-          router.pathname === link.path
-            ? `${classes.mainLink} ${classes.activeState}`
-            : `${classes.mainLink}`
-        }
-      >
-        <div className={classes.mainLinkInner}>
-          <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
-          <span>{link.label}</span>
-        </div>
-      </UnstyledButton>
-    </Link>
-  ));
-
-  // Account Links
+  // personal Links
   const accountLinks = account.map((link) => (
     <Link href={link.path} key={link.path}>
       <UnstyledButton
@@ -240,7 +203,7 @@ export function NavbarSearch({
     </Link>
   ));
 
-  // Other Links
+  // logout Links
   const otherLinks = other.map((link) => (
     <UnstyledButton key={link.label} className={classes.mainLink}>
       <div className={classes.mainLinkInner}>
@@ -262,8 +225,8 @@ export function NavbarSearch({
           {/* GENERAL */}
           <Navbar.Section className={classes.section}>
             <Group className={classes.collectionsHeader} position="apart">
-              <Text size="xs" weight={500} color="dimmed">
-                GENERAL
+              <Text size="xs" weight={500} color="black">
+                Overview
               </Text>
             </Group>
             <div className={classes.mainLinks}>{generalLinks}</div>
@@ -272,30 +235,19 @@ export function NavbarSearch({
           {/* PAYMENTS */}
           <Navbar.Section className={classes.section}>
             <Group className={classes.collectionsHeader} position="apart">
-              <Text size="xs" weight={500} color="dimmed">
-                FINANCE
+              <Text size="xs" weight={500} color="black">
+                Trending Tags
               </Text>
             </Group>
             <div className={classes.mainLinks}>{paymentsLinks}</div>
-          </Navbar.Section>
-
-          {/* Customer */}
-
-          <Navbar.Section className={classes.section}>
-            <Group className={classes.collectionsHeader} position="apart">
-              <Text size="xs" weight={500} color="dimmed">
-                CLIENTS
-              </Text>
-            </Group>
-            <div className={classes.mainLinks}>{customerLinks}</div>
           </Navbar.Section>
 
           {/* ACCOUNT */}
 
           <Navbar.Section className={classes.section}>
             <Group className={classes.collectionsHeader} position="apart">
-              <Text size="xs" weight={500} color="dimmed">
-                ACCOUNT
+              <Text size="xs" weight={500} color="black">
+                Personal
               </Text>
             </Group>
             <div className={classes.mainLinks}>{accountLinks}</div>

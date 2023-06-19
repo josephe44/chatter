@@ -130,6 +130,7 @@ export default function HeaderComponent({
       <div className={classes.wrapper}>
         <div style={{ width: 234 }}>
           <Flex align="center">
+            <Text>CHATTER</Text>
             {/* <Image src={Logo.src} width={100} /> */}
           </Flex>
         </div>
@@ -173,13 +174,13 @@ export default function HeaderComponent({
                 mr={20}
                 mt={3}
               >
-                <RiNotification2Line color={colors.chatter[2]} size={20} />
+                <RiNotification2Line color="black" size={20} />
               </Indicator>
             </MediaQuery>
 
             <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
               <UnstyledButton mr={10} onClick={toggle}>
-                <IconMaximize color={colors.chatter[2]} size={20} />
+                <IconMaximize color="black" size={20} />
               </UnstyledButton>
             </MediaQuery>
 
@@ -194,10 +195,10 @@ export default function HeaderComponent({
               <Menu.Target>
                 <UnstyledButton className={cx(classes.user)}>
                   <Group spacing={7}>
-                    <Avatar radius="xl" size={30} color="red">
+                    <Avatar radius="xl" size={30} color="black">
                       AE
                     </Avatar>
-                    <Group className={cx(classes.userText)}>
+                    {/* <Group className={cx(classes.userText)}>
                       <Text
                         weight={500}
                         size="xs"
@@ -208,7 +209,7 @@ export default function HeaderComponent({
                         Anyiam Ebube
                       </Text>
                       <IconChevronDown size={rem(12)} stroke={1.5} />
-                    </Group>
+                    </Group> */}
                   </Group>
                 </UnstyledButton>
               </Menu.Target>
