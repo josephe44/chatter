@@ -24,6 +24,7 @@ import {
   Flex,
   Overlay,
   Container,
+  Select,
 } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 import HeadMeta from "@/components/head";
@@ -148,8 +149,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const server = process.env.NEXT_PUBLIC_DB_HOST;
-
 export default function Register() {
   const { classes } = useStyles();
   const router = useRouter();
@@ -182,7 +181,6 @@ export default function Register() {
       if (error) {
         // remove the / from the error code
         const errorCode = error?.code.replace("/", "");
-        console.log(errorCode);
         switch (errorCode) {
           case "authuser-not-found":
             setError("The email address is not valid");
@@ -232,6 +230,7 @@ export default function Register() {
           <Tabs
             color="green"
             defaultValue="login"
+            onTabChange={(value) => router.push(`/auth/${value}`)}
             className={classes.tabStyle}
             my={40}
           >
@@ -317,7 +316,9 @@ export default function Register() {
               </Center>
             </Tabs.Panel>
 
-            <Tabs.Panel value="register">register tab content</Tabs.Panel>
+            <Tabs.Panel value="register">
+              <></>
+            </Tabs.Panel>
           </Tabs>
         </Grid.Col>
       </Grid>
