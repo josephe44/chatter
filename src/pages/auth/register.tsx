@@ -28,8 +28,9 @@ import {
 } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons-react";
 import HeadMeta from "@/components/head";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { auth, db } from "../../../firebase";
 
 export const registerValue = {
   firstName: "",
@@ -168,19 +169,48 @@ export default function Register() {
     setVisible(true);
 
     const { values } = form;
-    const { email, password } = values;
+    const { firstName, lastName, joinAs, email, password, confirmPassword } =
+      values;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
+      // Register user
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
+
+      // Get User information
       const user = userCredential.user;
 
-      if (user) {
-        router.push("/dashboard");
-      }
+      // Update the displayName of the user
+      updateProfile(auth.currentUser, {
+        displayName: `${firstName} ${lastName}`,
+      });
+
+      const formData = {
+        fullname: `${firstName} ${lastName}`,
+        joinAs,
+        email,
+        password,
+        confirmPassword,
+      };
+
+      // copying fromData to formDataCopy without changing it
+      const formDataCopy = { ...formData };
+
+      // Delete the password before storing userCredential in firebase
+      delete formDataCopy.password;
+      delete formDataCopy.confirmPassword;
+
+      // creating a timestammp for each user stored in firebase
+      formDataCopy.timestammp = serverTimestamp();
+
+      // Storing the user to firebase
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
+
+      // Redirect to the dashboard
+      router.push("/dashboard");
     } catch (error: any) {
       if (error) {
         // remove the / from the error code
@@ -281,7 +311,7 @@ export default function Register() {
                       </Alert>
                     )}
 
-                    <Flex align="center" justify="center" gap={20}>
+                    <Flex align="center" justify="center" gap={10}>
                       <TextInput
                         placeholder="firstName"
                         w="100%"
@@ -316,7 +346,7 @@ export default function Register() {
                       />
                     </Flex>
 
-                    <Select
+                    {/* <Select
                       label="You are joining as?"
                       w="100%"
                       mb="md"
@@ -327,9 +357,24 @@ export default function Register() {
                         { value: "reader", label: "Reader" },
                       ]}
                       value={form.values.joinAs}
-                      // onChange={(event) =>
-                      //   form.setFieldValue("joinAs", event.currentTarget.value)
-                      // }
+                      onChange={(event) =>
+                        form.setFieldValue("joinAs", event.currentTarget.value)
+                      }
+                    /> */}
+
+                    <Select
+                      label="Your favorite framework/library"
+                      w="100%"
+                      mb="md"
+                      size="md"
+                      placeholder="Pick one"
+                      searchable
+                      onSearchChange={(event) =>
+                        form.setFieldValue("joinAs", event)
+                      }
+                      searchValue={form.values.joinAs}
+                      nothingFound="No options"
+                      data={["Reader", "Writer"]}
                     />
 
                     <TextInput
@@ -384,7 +429,7 @@ export default function Register() {
                       fullWidth
                       mt="xl"
                       size="md"
-                      // onClick={handleSubmit}
+                      onClick={handleSubmit}
                       className={classes.btnStyle}
                       radius="sm"
                     >
