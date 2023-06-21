@@ -25,13 +25,15 @@ import {
   Overlay,
   Container,
 } from "@mantine/core";
-
-import { loginValues } from "@/utils/form";
-import { loginValidator } from "@/utils/validators";
-import { colors } from "@/constants/theme";
 import { IconAlertCircle } from "@tabler/icons-react";
-
 import HeadMeta from "@/components/head";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebase";
+
+export const loginValues = {
+  email: "",
+  password: "",
+};
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -157,11 +159,51 @@ export default function Register() {
 
   const form = useForm({
     initialValues: loginValues,
-    validate: loginValidator,
   });
 
   const handleSubmit = async () => {
     setVisible(true);
+
+    const { values } = form;
+    const { email, password } = values;
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      if (user) {
+        router.push("/dashboard");
+      }
+    } catch (error: any) {
+      if (error) {
+        // remove the / from the error code
+        const errorCode = error?.code.replace("/", "");
+        console.log(errorCode);
+        switch (errorCode) {
+          case "authuser-not-found":
+            setError("The email address is not valid");
+            break;
+
+          case "authinvalid-email3":
+            setError(
+              "The user corresponding to the given email does not exist"
+            );
+            break;
+          case "authwrong-password":
+            setError("The password is invalid for the given email");
+            break;
+          default:
+            setError("Something went wrong while processing your request");
+            break;
+        }
+      }
+    } finally {
+      setVisible(false);
+    }
   };
 
   return (
@@ -170,7 +212,7 @@ export default function Register() {
       <Grid>
         <Grid.Col className={classes.hidden} sm={12} md={5}>
           <div className={classes.imageContainer}>
-            <Overlay color="#000" opacity={0.59} zIndex={1} />
+            {/* <Overlay color="#000" opacity={0.59} zIndex={1} /> */}
 
             <Flex align="center" justify="center" className={classes.textStyle}>
               <Text c="white" fz={40} fw="bolder" ta="center">

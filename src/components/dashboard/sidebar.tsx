@@ -23,6 +23,8 @@ import {
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
@@ -146,6 +148,17 @@ export function NavbarSearch({
   const router = useRouter();
   const { classes } = useStyles();
 
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        router.push("/auth/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   // overview Links
   const generalLinks = general.map((link) => (
     <Link href={link.path} key={link.path}>
@@ -205,7 +218,11 @@ export function NavbarSearch({
 
   // logout Links
   const otherLinks = other.map((link) => (
-    <UnstyledButton key={link.label} className={classes.mainLink}>
+    <UnstyledButton
+      key={link.label}
+      className={classes.mainLink}
+      onClick={handleLogout}
+    >
       <div className={classes.mainLinkInner}>
         <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
         <span>{link.label}</span>
