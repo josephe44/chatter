@@ -140,44 +140,11 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const mockdata = [
-  {
-    icon: IconCode,
-    title: "Tenancy/Mortgage",
-    link: "/cases/tenancy",
-  },
-  {
-    icon: IconCoin,
-    title: "Subscription/Services",
-    link: "/cases/ott",
-  },
-  {
-    icon: IconBook,
-    title: "Thrift/Ajo",
-    link: "/cases/thrift",
-  },
-];
-
 export default function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const { classes, theme } = useStyles();
-
-  const links = mockdata.map((item) => (
-    <UnstyledButton className={classes.subLink} key={item.title}>
-      <Group noWrap align="flex-start">
-        <ThemeIcon size={24} variant="default" radius="md">
-          <item.icon size={rem(22)} color={theme.colors.chatter[0]} />
-        </ThemeIcon>
-        <Link href={item.link} className={classes.link}>
-          <Text size="sm" fw={500}>
-            {item.title}
-          </Text>
-        </Link>
-      </Group>
-    </UnstyledButton>
-  ));
 
   return (
     <Box className={classes.wrapper}>
@@ -205,7 +172,7 @@ export default function Navbar() {
                 Contact
               </Link>
 
-              <Link href="/blog" className={classes.link}>
+              <Link href="/dashboard" className={classes.link}>
                 Blog
               </Link>
             </Group>
@@ -219,9 +186,11 @@ export default function Navbar() {
                   Log in
                 </Button>
               </Link>
-              <Button className={classes.control} fw="bold">
-                Sign up
-              </Button>
+              <Link href="/auth/register">
+                <Button className={classes.control} fw="bold">
+                  Sign up
+                </Button>
+              </Link>
             </Group>
             <Burger
               opened={drawerOpened}
@@ -245,24 +214,30 @@ export default function Navbar() {
         zIndex={1000000}
       >
         <ScrollArea h={`calc(100vh - ${rem(60)})`} mx="-md">
-          <a href="#" className={classes.link}>
-            Home
-          </a>
-          <a href="#" className={classes.link}>
-            About Us
-          </a>
+          <Link href="/">
+            <span className={classes.link}>Home</span>
+          </Link>
+          <Link href="/">
+            <span className={classes.link}>About Us</span>
+          </Link>
 
-          <a href="#" className={classes.link}>
-            Contact
-          </a>
-          <a href="#" className={classes.link}>
-            Blog
-          </a>
+          <Link href="/">
+            <span className={classes.link}>Contact</span>
+          </Link>
+
+          <Link href="/dashboard">
+            <span className={classes.link}>Blog</span>
+          </Link>
+
           <Group position="center" grow pb="xl" px="md">
-            <Button className={classes.control2} variant="default">
-              Log in
-            </Button>
-            <Button className={classes.control}>Get Started</Button>
+            <Link href="/auth/login">
+              <Button className={classes.control2} variant="default">
+                Log in
+              </Button>
+            </Link>
+            <Link href="/auth/register">
+              <Button className={classes.control}>Get Started</Button>
+            </Link>
           </Group>
         </ScrollArea>
       </Drawer>

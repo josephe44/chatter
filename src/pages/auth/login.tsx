@@ -95,7 +95,8 @@ const useStyles = createStyles((theme) => ({
     position: "relative",
     minHeight: "100vh",
     backgroundImage:
-      "url(https://res.cloudinary.com/eworldtech/image/upload/v1686225360/unsplash_9pjBx5uVBlg_hmxuv9.png)",
+      "url(https://res.cloudinary.com/eworldtech/image/upload/q_auto:low/v1686225360/unsplash_9pjBx5uVBlg_hmxuv9.png)",
+    backgroundColor: "gray",
     backgroundSize: "cover",
     backgroundPosition: "center",
     display: "flex",
@@ -210,7 +211,7 @@ export default function Register() {
       <Grid>
         <Grid.Col className={classes.hidden} sm={12} md={5}>
           <div className={classes.imageContainer}>
-            {/* <Overlay color="#000" opacity={0.59} zIndex={1} /> */}
+            <Overlay color="#000" opacity={0.59} zIndex={1} />
 
             <Flex align="center" justify="center" className={classes.textStyle}>
               <Text c="white" fz={40} fw="bolder" ta="center">

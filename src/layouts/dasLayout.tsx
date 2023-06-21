@@ -8,6 +8,7 @@ import {
   useMantineTheme,
   createStyles,
   LoadingOverlay,
+  Center,
 } from "@mantine/core";
 import { SpotlightProvider } from "@mantine/spotlight";
 import type { SpotlightAction } from "@mantine/spotlight";
@@ -86,7 +87,14 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
 
       return unsubscribe;
     }, [router]);
-    if (!user) return <></>;
+    if (!user)
+      return (
+        <>
+          <Center>
+            <h1>Chatter</h1>
+          </Center>
+        </>
+      );
     return (
       <SpotlightProvider
         actions={actions}
