@@ -34,21 +34,15 @@ import {
 import { RiNotification2Line } from "react-icons/ri";
 import { colors } from "@/constants/theme";
 import { useFullscreen } from "@mantine/hooks";
-// import Cookies from "js-cookie";
-import axios from "axios";
 import { useRouter } from "next/router";
-
-const server = process.env.NEXT_PUBLIC_DB_HOST;
+import { signOut } from "firebase/auth";
+import { auth } from "../../../firebase";
 
 const useStyles = createStyles((theme) => ({
   user: {
     padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
     borderRadius: theme.radius.sm,
     transition: "background-color 100ms ease",
-
-    "&:hover": {
-      backgroundColor: theme.colors.chatter[4],
-    },
 
     [theme.fn.smallerThan("xs")]: {
       display: "none",
@@ -96,12 +90,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
-  bgHover: {
-    "&:hover": {
-      backgroundColor: theme.colors.chatter[4],
-      color: theme.colors.chatter[0],
-    },
-  },
+  bgHover: {},
 }));
 
 interface Props {
@@ -123,7 +112,16 @@ export default function HeaderComponent({
 
   const [userMenuOpened, setUserMenuOpened] = useState(false);
 
-  const handleLogout = async () => {};
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        router.push("/auth/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Header height={{ base: 60, md: 60 }} p="md">
