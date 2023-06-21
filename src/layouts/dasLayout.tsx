@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode } from "react";
+import { ComponentType, ReactNode, useEffect } from "react";
 
 import { useState } from "react";
 import {
@@ -9,10 +9,8 @@ import {
   createStyles,
   LoadingOverlay,
 } from "@mantine/core";
-
 import { SpotlightProvider } from "@mantine/spotlight";
 import type { SpotlightAction } from "@mantine/spotlight";
-
 import HeaderComponent from "@/components/dashboard/header";
 import {
   IconHome,
@@ -21,9 +19,10 @@ import {
   IconSearch,
 } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-
 import HeadMeta from "@/components/dashboard/head";
 import { NavbarSearch } from "@/components/dashboard/sidebar";
+import { auth } from "../../firebase";
+import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
   user: {
@@ -62,11 +61,8 @@ const actions: SpotlightAction[] = [
   },
 ];
 
-export default function withLayout(
-  Component: ComponentType,
-  pageName: string = ""
-) {
-  function ApplicationShell() {
+const withLayout = (Component: ComponentType, pageName: string = "") => {
+  function ApplicationShell(props: any) {
     const theme = useMantineTheme();
     const { classes, cx } = useStyles();
 
@@ -75,6 +71,22 @@ export default function withLayout(
 
     const [visible, { toggle }] = useDisclosure(false);
 
+    const [user, setUser] = useState(null);
+    const router = useRouter();
+
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          console.log({ user });
+          setUser(user as any);
+        } else {
+          router.push("/auth/login");
+        }
+      });
+
+      return unsubscribe;
+    }, [router]);
+    if (!user) return <></>;
     return (
       <SpotlightProvider
         actions={actions}
@@ -108,11 +120,13 @@ export default function withLayout(
             />
           }
         >
-          <Component />
+          <Component {...props} />
         </AppShell>
       </SpotlightProvider>
     );
   }
 
   return ApplicationShell;
-}
+};
+
+export default withLayout;
