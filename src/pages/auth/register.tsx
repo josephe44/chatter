@@ -185,29 +185,33 @@ export default function Register() {
 
       // Get User information
       const user = userCredential.user;
+      const currentUser = auth.currentUser;
 
       // Update the displayName of the user
-      updateProfile(auth.currentUser, {
-        displayName: `${firstName} ${lastName}`,
-      });
+      if (currentUser) {
+        updateProfile(currentUser, {
+          displayName: `${firstName} ${lastName}`,
+        });
+      }
 
       const formData = {
         fullname: `${firstName} ${lastName}`,
         joinAs,
         email,
-        password,
-        confirmPassword,
+        // password,
+        // confirmPassword,
+        timestamp: serverTimestamp(),
       };
 
       // copying fromData to formDataCopy without changing it
       const formDataCopy = { ...formData };
 
       // Delete the password before storing userCredential in firebase
-      delete formDataCopy.password;
-      delete formDataCopy.confirmPassword;
+      // delete formDataCopy.password;
+      // delete formDataCopy.confirmPassword;
 
       // creating a timestammp for each user stored in firebase
-      formDataCopy.timestammp = serverTimestamp();
+      formDataCopy.timestamp = serverTimestamp();
 
       // Storing the user to firebase
       await setDoc(doc(db, "users", user.uid), formDataCopy);
