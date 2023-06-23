@@ -81,8 +81,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   textkbd: {
-    maxWidth: rem(800),
+    maxWidth: rem(400),
     width: "100%",
+    margin: "0 auto",
 
     [theme.fn.smallerThan("md")]: {
       maxWidth: "100%",
@@ -124,12 +125,11 @@ export default function HeaderComponent({
   };
 
   return (
-    <Header height={{ base: 60, md: 60 }} p="md">
+    <Header height={{ base: 60, md: 60 }} p="xl">
       <div className={classes.wrapper}>
         <div style={{ width: 234 }}>
           <Flex align="center">
             <Text>CHATTER</Text>
-            {/* <Image src={Logo.src} width={100} /> */}
           </Flex>
         </div>
 
@@ -138,29 +138,13 @@ export default function HeaderComponent({
             className={classes.textkbd}
             placeholder="Search"
             icon={<IconSearch size="1rem" />}
-            rightSectionWidth={90}
-            rightSection={
-              <Flex align="center">
-                <Kbd mr={5} size="xs">
-                  Shift
-                </Kbd>
-                <span>+</span>
-                <Kbd ml={5} size="xs">
-                  R
-                </Kbd>
-              </Flex>
-            }
             styles={{ rightSection: { pointerEvents: "none" } }}
           />
         </div>
 
         <Group spacing={7}>
           <Flex align="center">
-            <UnstyledButton
-              mr={15}
-              className={classes.searchbtn}
-              onClick={() => spotlight.open()}
-            >
+            <UnstyledButton mr={15} className={classes.searchbtn}>
               <IconSearch color={colors.chatter[2]} size={20} />
             </UnstyledButton>
 
@@ -174,12 +158,6 @@ export default function HeaderComponent({
               >
                 <RiNotification2Line color="black" size={20} />
               </Indicator>
-            </MediaQuery>
-
-            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-              <UnstyledButton mr={10} onClick={toggle}>
-                <IconMaximize color="black" size={20} />
-              </UnstyledButton>
             </MediaQuery>
 
             <Menu
@@ -196,18 +174,6 @@ export default function HeaderComponent({
                     <Avatar radius="xl" size={30} color="black">
                       AE
                     </Avatar>
-                    {/* <Group className={cx(classes.userText)}>
-                      <Text
-                        weight={500}
-                        size="xs"
-                        sx={{ lineHeight: 1 }}
-                        ml={3}
-                        mr={3}
-                      >
-                        Anyiam Ebube
-                      </Text>
-                      <IconChevronDown size={rem(12)} stroke={1.5} />
-                    </Group> */}
                   </Group>
                 </UnstyledButton>
               </Menu.Target>
