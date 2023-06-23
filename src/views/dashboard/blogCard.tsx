@@ -38,8 +38,8 @@ const useStyles = createStyles((theme) => ({
   },
 
   profileImage: {
-    height: "80px",
-    width: "80px",
+    height: "60px",
+    width: "60px",
     borderRadius: "50%",
     overflow: "hidden",
   },
