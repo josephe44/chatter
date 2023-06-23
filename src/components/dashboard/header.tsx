@@ -129,7 +129,9 @@ export default function HeaderComponent({
       <div className={classes.wrapper}>
         <div style={{ width: 234 }}>
           <Flex align="center">
-            <Text>CHATTER</Text>
+            <Text fw={600} fz={22} c={theme.colors.chatter[0]}>
+              CHATTER
+            </Text>
           </Flex>
         </div>
 
