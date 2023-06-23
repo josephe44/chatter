@@ -242,7 +242,7 @@ export function NavbarSearch({
           {/* GENERAL */}
           <Navbar.Section className={classes.section}>
             <Group className={classes.collectionsHeader} position="apart">
-              <Text size="xs" weight={500} color="black">
+              <Text size="sm" weight={500} color="black">
                 Overview
               </Text>
             </Group>
@@ -252,7 +252,7 @@ export function NavbarSearch({
           {/* PAYMENTS */}
           <Navbar.Section className={classes.section}>
             <Group className={classes.collectionsHeader} position="apart">
-              <Text size="xs" weight={500} color="black">
+              <Text size="sm" weight={500} color="black">
                 Trending Tags
               </Text>
             </Group>
@@ -263,7 +263,7 @@ export function NavbarSearch({
 
           <Navbar.Section className={classes.section}>
             <Group className={classes.collectionsHeader} position="apart">
-              <Text size="xs" weight={500} color="black">
+              <Text size="sm" weight={500} color="black">
                 Personal
               </Text>
             </Group>
@@ -272,7 +272,7 @@ export function NavbarSearch({
         </div>
 
         {/* Other */}
-        <Navbar.Section className={classes.section} mb={40}>
+        <Navbar.Section className={classes.section} mb={60}>
           <div className={classes.mainLinks}>{otherLinks}</div>
         </Navbar.Section>
       </div>
