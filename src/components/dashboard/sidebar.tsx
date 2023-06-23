@@ -59,7 +59,7 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: 165,
-    fontSize: theme.fontSizes.xs,
+    fontSize: theme.fontSizes.sm,
     marginLeft: 20,
     padding: `${rem(4)} ${theme.spacing.xs}`,
     borderRadius: theme.radius.sm,
@@ -171,7 +171,7 @@ export function NavbarSearch({
         }
       >
         <div className={classes.mainLinkInner}>
-          <link.icon size={20} className={classes.mainLinkIcon} stroke={1.5} />
+          <link.icon size={22} className={classes.mainLinkIcon} stroke={1.5} />
           <span>{link.label}</span>
         </div>
       </UnstyledButton>
