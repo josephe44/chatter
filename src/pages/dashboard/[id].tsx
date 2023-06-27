@@ -1,5 +1,15 @@
 import React from "react";
-import { Box, Card, Container, Flex, Text, createStyles } from "@mantine/core";
+import withLayout from "@/layouts/dasLayout";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Flex,
+  Text,
+  createStyles,
+  rem,
+} from "@mantine/core";
 import {
   IconBrandWechat,
   IconBook,
@@ -37,12 +47,32 @@ const useStyles = createStyles((theme) => ({
     borderRadius: "50%",
     overflow: "hidden",
   },
+  control: {
+    color: "#fff",
+    background: "#000",
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    width: rem(100),
+    height: rem(46),
+    borderRadius: theme.radius.md,
+
+    "&:hover": {
+      backgroundColor: "#000",
+    },
+  },
 }));
 
-function BlogCard() {
+function SingleBlog() {
   const { classes, theme } = useStyles();
   return (
-    <Link href="/dashboard/[id]" as="/dashboard/1">
+    <Container fluid>
+      <Box mt={40} mb={20}>
+        <Flex align="center" justify="space-between">
+          <Link href="/dashboard">
+            <Button className={classes.control}>Go back</Button>
+          </Link>
+        </Flex>
+      </Box>
       <Card
         withBorder
         radius={5}
@@ -74,6 +104,14 @@ function BlogCard() {
               </Flex>
             </Flex>
 
+            <Box className={classes.cardImage} mt={20}>
+              <img
+                src="https://rb.gy/d0tu3"
+                alt="image"
+                className={classes.blogImage}
+              />
+            </Box>
+
             <Box mb={10}>
               <Text fw={600} fz={24} mt={10}>
                 Starting out as a Product designer
@@ -85,23 +123,28 @@ function BlogCard() {
                 </Text>
               </Flex>
             </Box>
-            <Text fz={16}>
+            <Text fz={16} mt={20}>
               Embarking on a journey as a product designer can be an
+              exhilarating and fulfilling experience. As a profession that
+              bridges the realms of art, technology, and problem-solving,
+              product design offers an opportunity to shape the way people
+              interact with the world around them. Embarking on a journey as a
+              product designer can be an exhilarating and fulfilling experience.
+              As a profession that bridges the realms of art, technology, and
+              problem-solving, product design offers an opportunity to shape the
+              way people interact with the world around them. Embarking on a
+              journey as a product designer can be an exhilarating and
+              fulfilling experience. As a profession that bridges the realms of
+              art, technology, and problem-solving, product design offers an
+              opportunity to shape the way people interact with the world around
+              them. Embarking on a journey as a product designer can be an
               exhilarating and fulfilling experience. As a profession that
               bridges the realms of art, technology, and problem-solving,
               product design offers an opportunity to shape the way people
               interact with the world around them.
             </Text>
           </Box>
-
-          <Box className={classes.cardImage} mt={20}>
-            <img
-              src="https://rb.gy/d0tu3"
-              alt="image"
-              className={classes.blogImage}
-            />
-          </Box>
-          <>
+          <Box mt={20}>
             <Flex align="center" justify="space-between" mt={10} mb={10}>
               <Flex align="center">
                 <IconBrandWechat />
@@ -122,11 +165,11 @@ function BlogCard() {
                 </Text>
               </Flex>
             </Flex>
-          </>
+          </Box>
         </Container>
       </Card>
-    </Link>
+    </Container>
   );
 }
 
-export default BlogCard;
+export default withLayout(SingleBlog, "Blog");
