@@ -140,7 +140,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar({ user }: any) {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -176,22 +176,26 @@ export default function Navbar() {
                 Blog
               </Link>
             </Group>
-            <Group className={classes.hiddenMobile}>
-              <Link href="/auth/login" className={classes.link}>
-                <Button
-                  className={classes.control2}
-                  variant="default"
-                  fw="bold"
-                >
-                  Log in
-                </Button>
-              </Link>
-              <Link href="/auth/register">
-                <Button className={classes.control} fw="bold">
-                  Sign up
-                </Button>
-              </Link>
-            </Group>
+            {user ? (
+              <Text>User</Text>
+            ) : (
+              <Group className={classes.hiddenMobile}>
+                <Link href="/auth/login" className={classes.link}>
+                  <Button
+                    className={classes.control2}
+                    variant="default"
+                    fw="bold"
+                  >
+                    Log in
+                  </Button>
+                </Link>
+                <Link href="/auth/register">
+                  <Button className={classes.control} fw="bold">
+                    Sign up
+                  </Button>
+                </Link>
+              </Group>
+            )}
             <Burger
               opened={drawerOpened}
               onClick={toggleDrawer}

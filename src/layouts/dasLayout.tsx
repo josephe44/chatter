@@ -78,7 +78,6 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
     useEffect(() => {
       const unsubscribe = auth.onAuthStateChanged((user) => {
         if (user) {
-          console.log({ user });
           setUser(user as any);
         } else {
           router.push("/auth/login");
@@ -125,6 +124,7 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
               toggleOverlay={toggle}
               opened={opened}
               setOpened={setOpened}
+              user={user}
             />
           }
         >

@@ -110,13 +110,13 @@ const useStyles = createStyles((theme) => ({
   },
 
   activeState: {
-    backgroundColor: theme.colors.chatter[4],
+    // backgroundColor: theme.colors.chatter[4],
     color: theme.colors.chatter[0],
   },
 }));
 
 const general = [
-  { icon: IconSmartHome, label: "Feed", path: "/" },
+  { icon: IconSmartHome, label: "Feed", path: "/dashboard" },
   { icon: IconSmartHome, label: "Bookmarks", path: "/" },
   { icon: IconSmartHome, label: "Team blogs", path: "/" },
   { icon: IconSmartHome, label: "Drafts", path: "/" },

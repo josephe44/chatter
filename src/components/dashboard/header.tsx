@@ -27,6 +27,7 @@ import {
   IconMaximize,
   IconPlayerPause,
   IconSearch,
+  IconUser,
   IconSettings,
   IconSwitchHorizontal,
   IconTrash,
@@ -98,12 +99,14 @@ interface Props {
   toggleOverlay: () => void;
   opened: boolean;
   setOpened: (opened: boolean) => void;
+  user: any;
 }
 
 export default function HeaderComponent({
   toggleOverlay,
   opened,
   setOpened,
+  user,
 }: Props) {
   const router = useRouter();
   const theme = useMantineTheme();
@@ -122,6 +125,16 @@ export default function HeaderComponent({
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  // get the first letter of each word in the user's name
+  const getInitials = (name: string) => {
+    const names = name.split(" ");
+    let initials = "";
+    names.forEach((n) => {
+      initials += n[0];
+    });
+    return initials;
   };
 
   return (
@@ -174,31 +187,34 @@ export default function HeaderComponent({
                 <UnstyledButton className={cx(classes.user)}>
                   <Group spacing={7}>
                     <Avatar radius="xl" size={30} color="black">
-                      AE
+                      <Text tt="uppercase">
+                        {getInitials(user?.displayName)}
+                      </Text>
                     </Avatar>
                   </Group>
                 </UnstyledButton>
               </Menu.Target>
               <Menu.Dropdown>
+                <Menu.Item
+                  className={classes.bgHover}
+                  icon={<IconUser size="0.9rem" stroke={1.5} />}
+                >
+                  {user?.displayName}
+                </Menu.Item>
                 <Menu.Label>Settings</Menu.Label>
+
+                <Menu.Item
+                  className={classes.bgHover}
+                  icon={<IconSettings size="0.9rem" stroke={1.5} />}
+                >
+                  Notification
+                </Menu.Item>
+
                 <Menu.Item
                   className={classes.bgHover}
                   icon={<IconSettings size="0.9rem" stroke={1.5} />}
                 >
                   Account settings
-                </Menu.Item>
-                <Menu.Item
-                  className={classes.bgHover}
-                  icon={<IconSwitchHorizontal size="0.9rem" stroke={1.5} />}
-                >
-                  Change account
-                </Menu.Item>
-                <Menu.Item
-                  className={classes.bgHover}
-                  onClick={handleLogout}
-                  icon={<IconLogout size="0.9rem" stroke={1.5} />}
-                >
-                  Logout
                 </Menu.Item>
 
                 <Menu.Divider />
@@ -206,16 +222,10 @@ export default function HeaderComponent({
                 <Menu.Label>Danger zone</Menu.Label>
                 <Menu.Item
                   className={classes.bgHover}
-                  icon={<IconPlayerPause size="0.9rem" stroke={1.5} />}
+                  onClick={handleLogout}
+                  icon={<IconLogout size="0.9rem" stroke={1.5} />}
                 >
-                  Pause subscription
-                </Menu.Item>
-                <Menu.Item
-                  className={classes.bgHover}
-                  color="red"
-                  icon={<IconTrash size="0.9rem" stroke={1.5} />}
-                >
-                  Delete account
+                  Logout
                 </Menu.Item>
               </Menu.Dropdown>
             </Menu>

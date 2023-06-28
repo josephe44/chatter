@@ -53,7 +53,7 @@ function Dashboard() {
               <Text fz={14}>Explore different content you’d love </Text>
             </Box>
 
-            <Link href="#">
+            <Link href="/dashboard/new">
               <Button className={classes.control} leftIcon={<IconPencil />}>
                 Post a content
               </Button>
