@@ -41,11 +41,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const getFirst50Words = (str: string) => {
-  let result = str.split(" ").splice(0, 35).join(" ");
-  return result + "...";
-};
-
 function BlogCard({ data, key, id }: any) {
   const { classes, theme } = useStyles();
 
@@ -62,17 +57,14 @@ function BlogCard({ data, key, id }: any) {
     return time;
   };
 
+  const getFirst50Words = (str: string) => {
+    let result = str.split(" ").splice(0, 35).join(" ");
+    return result + "...";
+  };
+
   return (
     <Link href={`/dashboard/${id}`} key={key}>
-      <Card
-        withBorder
-        radius={5}
-        className={classes.card}
-        px={20}
-        component="a"
-        href="#"
-        mb={0}
-      >
+      <Card withBorder radius={5} className={classes.card} px={20} mb={0}>
         <Container size="900px" m="0">
           <Box>
             <Flex align="center" gap={10}>

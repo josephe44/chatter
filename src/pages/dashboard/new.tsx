@@ -150,6 +150,8 @@ function NewBlog({ user }: any) {
         body: form.values.body,
         tags: form.values.tags,
         image: imageUrls,
+        likes: 0,
+        views: 0,
         createdAt: serverTimestamp(),
       });
 

@@ -41,8 +41,6 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function Dashboard({ data }: any) {
-  // console.log(data);
-  console.log(JSON.parse(data[0].data));
   const { classes, theme } = useStyles();
 
   return (

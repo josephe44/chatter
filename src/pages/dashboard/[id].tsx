@@ -22,7 +22,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import dayjs from "dayjs";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 import { db } from "../../../firebase";
 
@@ -77,7 +77,27 @@ function SingleBlog({ data }: any) {
   //   get the id from the url
   const { id } = router.query;
 
-  const [blog, setBlog] = useState(null);
+  const [likes, setLikes] = useState(data?.likes);
+  const [views, setViews] = useState(data?.views);
+
+  //  update the likes and make it reflect on the UI without refreshing the page
+
+  const handleLikes = async () => {
+    const blogRef = doc(db, "blogs", id);
+    await updateDoc(blogRef, {
+      likes: data?.likes + 1,
+    });
+    setLikes(likes + 1);
+  };
+
+  //  update the views and make it reflect on the UI without refreshing the page
+  const handleViews = async () => {
+    const blogRef = doc(db, "blogs", id);
+    await updateDoc(blogRef, {
+      views: data?.views + 1,
+    });
+    setViews(views + 1);
+  };
 
   return (
     <Fragment>
@@ -90,15 +110,7 @@ function SingleBlog({ data }: any) {
             </Link>
           </Flex>
         </Box>
-        <Card
-          withBorder
-          radius={5}
-          className={classes.card}
-          px={20}
-          component="a"
-          href="#"
-          mb={0}
-        >
+        <Card withBorder radius={5} className={classes.card} px={20} mb={0}>
           <Container size="900px" m="0">
             <Box>
               <Flex align="center" gap={10}>
@@ -156,18 +168,22 @@ function SingleBlog({ data }: any) {
                     200
                   </Text>
                 </Flex>
-                <Flex align="center">
-                  <IconHeart />
-                  <Text fz={14} ml={5}>
-                    120
-                  </Text>
-                </Flex>
-                <Flex align="center">
-                  <IconReportAnalytics />
-                  <Text fz={14} ml={5}>
-                    2980 views
-                  </Text>
-                </Flex>
+                <Box onClick={handleLikes} style={{ cursor: "pointer" }}>
+                  <Flex align="center">
+                    <IconHeart />
+                    <Text fz={14} ml={5}>
+                      {likes}
+                    </Text>
+                  </Flex>
+                </Box>
+                <Box>
+                  <Flex align="center">
+                    <IconReportAnalytics />
+                    <Text fz={14} ml={5}>
+                      {views} views
+                    </Text>
+                  </Flex>
+                </Box>
               </Flex>
             </Box>
           </Container>
@@ -206,6 +222,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         notFound: true,
       };
     }
+
+    // update the views and make it reflect on the UI without refreshing the page
+    const blogRef = doc(db, "blogs", id);
+    await updateDoc(blogRef, {
+      views: data?.views + 1,
+    });
 
     return {
       props: { data },
