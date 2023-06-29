@@ -128,7 +128,7 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
             />
           }
         >
-          <Component {...props} />
+          <Component {...props} user={user} />
         </AppShell>
       </SpotlightProvider>
     );
