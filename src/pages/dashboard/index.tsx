@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import withLayout from "@/layouts/dasLayout";
+import { GetServerSideProps } from "next";
 import HeadMeta from "@/components/head";
 import {
   Box,
@@ -16,6 +17,8 @@ import {
 import Link from "next/link";
 import { IconPencil } from "@tabler/icons-react";
 import BlogCard from "@/views/dashboard/blogCard";
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -37,7 +40,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function Dashboard() {
+function Dashboard({ data }: any) {
+  // console.log(data);
+  console.log(JSON.parse(data[0].data));
   const { classes, theme } = useStyles();
 
   return (
@@ -86,8 +91,13 @@ function Dashboard() {
                 spacing={0}
               >
                 <Card p={0}>
-                  <BlogCard />
-                  <BlogCard />
+                  {data.map((item: any) => (
+                    <BlogCard
+                      key={item?.id}
+                      id={item.id}
+                      data={JSON.parse(item.data)}
+                    />
+                  ))}
                 </Card>
               </SimpleGrid>
             </>
@@ -107,3 +117,36 @@ function Dashboard() {
 }
 
 export default withLayout(Dashboard, "Dashboard");
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req } = ctx;
+  const id = ctx.params?.id;
+
+  let data = [] as any;
+
+  try {
+    const blogRef = collection(db, "blogs");
+    const q = query(blogRef, orderBy("createdAt", "desc"), limit(3));
+    const querySnap = await getDocs(q);
+
+    querySnap.forEach((doc) => {
+      return data.push({
+        id: doc.id,
+        data: JSON.stringify(doc.data()),
+      });
+    });
+
+    console.log("blog", data);
+
+    return {
+      props: { data },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+};

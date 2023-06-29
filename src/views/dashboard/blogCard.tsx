@@ -7,6 +7,8 @@ import {
   IconReportAnalytics,
 } from "@tabler/icons-react";
 import Link from "next/link";
+import dayjs from "dayjs";
+import { Timestamp } from "firebase/firestore";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -39,10 +41,29 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function BlogCard() {
+const getFirst50Words = (str: string) => {
+  let result = str.split(" ").splice(0, 35).join(" ");
+  return result + "...";
+};
+
+function BlogCard({ data, key, id }: any) {
   const { classes, theme } = useStyles();
+
+  const seconds = data?.createdAt?.seconds;
+  const nanoseconds = data?.createdAt?.nanoseconds;
+
+  const timestamp = new Timestamp(seconds, nanoseconds);
+  const date = timestamp.toDate();
+
+  const calculateReadingTime = () => {
+    const wpm = 225;
+    const words = data?.body.trim().split(/\s+/).length;
+    const time = Math.ceil(words / wpm);
+    return time;
+  };
+
   return (
-    <Link href="/dashboard/[id]" as="/dashboard/1">
+    <Link href={`/dashboard/${id}`} key={key}>
       <Card
         withBorder
         radius={5}
@@ -65,44 +86,35 @@ function BlogCard() {
 
               <Flex direction="column">
                 <Text fw={500} fz={20}>
-                  Grace Ikpang
+                  {data?.user}
                 </Text>
                 <Flex align="center" gap={10} mt={2}>
                   <Text fz={14}>Product designer</Text>
-                  <Text fz={14}>.May 25th, 2023</Text>
+                  <Text fz={14}>.{dayjs(date).format("MMMM D, YYYY")}</Text>
                 </Flex>
               </Flex>
             </Flex>
 
             <Box mb={10}>
               <Text fw={600} fz={24} mt={10}>
-                Starting out as a Product designer
+                {data?.title}
               </Text>
               <Flex align="center">
-                <IconBook />
-                <Text ml={5} fz={14}>
-                  10 mins read
+                <IconBook size={14} />
+                <Text ml={5} fz={12}>
+                  {calculateReadingTime()}
+                  {calculateReadingTime() > 1 ? " mins read" : " min read"}
                 </Text>
               </Flex>
             </Box>
-            <Text fz={16}>
-              Embarking on a journey as a product designer can be an
-              exhilarating and fulfilling experience. As a profession that
-              bridges the realms of art, technology, and problem-solving,
-              product design offers an opportunity to shape the way people
-              interact with the world around them.
-            </Text>
+            <Text fz={16}>{getFirst50Words(data?.body)}</Text>
           </Box>
 
           <Box className={classes.cardImage} mt={20}>
-            <img
-              src="https://rb.gy/d0tu3"
-              alt="image"
-              className={classes.blogImage}
-            />
+            <img src={data?.image} alt="image" className={classes.blogImage} />
           </Box>
           <>
-            <Flex align="center" justify="space-between" mt={10} mb={10}>
+            <Flex align="center" justify="space-between" mt={10} mb={20}>
               <Flex align="center">
                 <IconBrandWechat />
                 <Text fz={14} ml={5}>
