@@ -13,6 +13,7 @@ import {
   createStyles,
   rem,
   Textarea,
+  Group,
 } from "@mantine/core";
 import {
   IconBrandWechat,
@@ -174,7 +175,7 @@ function SingleBlog({ data }: any) {
                 <Flex align="center">
                   <IconBrandWechat />
                   <Text fz={14} ml={5}>
-                    200
+                    {data?.comments.length}
                   </Text>
                 </Flex>
                 <Box onClick={handleLikes} style={{ cursor: "pointer" }}>
@@ -196,6 +197,32 @@ function SingleBlog({ data }: any) {
               </Flex>
             </Box>
           </Container>
+
+          <Box mt={40}>
+            <Text fz={20} fw={600}>
+              Comments
+            </Text>
+            {data?.comments.length > 0 ? (
+              data?.comments.map((comment: any, id: number) => (
+                <Box mt={10} key={id} ml={10}>
+                  <Group>
+                    <Flex align="center">
+                      <Text size="sm" fw="bold" tt="capitalize">
+                        {comment?.user}
+                      </Text>
+                    </Flex>
+                  </Group>
+                  <Text size="xs" mt={5}>
+                    {comment?.comment}
+                  </Text>
+                </Box>
+              ))
+            ) : (
+              <Text size="xs" ml={10}>
+                No comments yet
+              </Text>
+            )}
+          </Box>
 
           <Box mt={40} mx={10}>
             <Textarea

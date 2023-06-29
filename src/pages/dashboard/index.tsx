@@ -134,8 +134,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       });
     });
 
-    console.log("blog", data);
-
     return {
       props: { data },
     };

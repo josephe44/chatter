@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Card,
-  Container,
-  Flex,
-  Text,
-  createStyles,
-} from "@mantine/core";
+import { Box, Card, Container, Flex, Text, createStyles } from "@mantine/core";
 import {
   IconBrandWechat,
   IconBook,
@@ -117,25 +110,23 @@ function BlogCard({ data, key, id }: any) {
               <Flex align="center">
                 <IconBrandWechat />
                 <Text fz={14} ml={5}>
-                  200
+                  {data?.comments.length}
                 </Text>
               </Flex>
               <Flex align="center">
                 <IconHeart />
                 <Text fz={14} ml={5}>
-                  120
+                  {data?.likes}
                 </Text>
               </Flex>
               <Flex align="center">
                 <IconReportAnalytics />
                 <Text fz={14} ml={5}>
-                  2980 views
+                  {data?.views} views
                 </Text>
               </Flex>
             </Flex>
           </>
-
-          
         </Container>
       </Card>
     </Link>
