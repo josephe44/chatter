@@ -12,6 +12,7 @@ import {
   Text,
   createStyles,
   rem,
+  Textarea,
 } from "@mantine/core";
 import {
   IconBrandWechat,
@@ -73,6 +74,7 @@ const useStyles = createStyles((theme) => ({
 function SingleBlog({ data }: any) {
   const { classes, theme } = useStyles();
   const router = useRouter();
+  const [comment, setComment] = useState("");
 
   //   get the id from the url
   const { id } = router.query;
@@ -90,13 +92,20 @@ function SingleBlog({ data }: any) {
     setLikes(likes + 1);
   };
 
-  //  update the views and make it reflect on the UI without refreshing the page
-  const handleViews = async () => {
+  // update comments and make it reflect on the UI without refreshing the page
+
+  const handleComments = async () => {
+    const commentData = {
+      comment,
+      user: data?.user,
+      createdAt: new Date(),
+    };
+
     const blogRef = doc(db, "blogs", id);
     await updateDoc(blogRef, {
-      views: data?.views + 1,
+      comments: [...data?.comments, commentData],
     });
-    setViews(views + 1);
+    setComment("");
   };
 
   return (
@@ -187,6 +196,20 @@ function SingleBlog({ data }: any) {
               </Flex>
             </Box>
           </Container>
+
+          <Box mt={40} mx={10}>
+            <Textarea
+              placeholder="Your comment"
+              label="Your comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <Flex align="flex-end" justify="flex-end" onClick={handleComments}>
+              <Button mt={14} bg="black" radius="xs">
+                Comment
+              </Button>
+            </Flex>
+          </Box>
         </Card>
       </Container>
     </Fragment>
