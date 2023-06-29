@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { GetServerSideProps } from "next";
 import withLayout from "@/layouts/dasLayout";
 import HeadMeta from "@/components/head";
 import { Fragment } from "react";
@@ -19,6 +20,11 @@ import {
   IconReportAnalytics,
 } from "@tabler/icons-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import dayjs from "dayjs";
+import { getDoc, doc } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
+import { db } from "../../../firebase";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -64,8 +70,15 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-function SingleBlog() {
+function SingleBlog({ data }: any) {
   const { classes, theme } = useStyles();
+  const router = useRouter();
+
+  //   get the id from the url
+  const { id } = router.query;
+
+  const [blog, setBlog] = useState(null);
+
   return (
     <Fragment>
       <HeadMeta pageName="Single Blog" />
@@ -98,55 +111,41 @@ function SingleBlog() {
                 </Box>
 
                 <Flex direction="column">
-                  <Text fw={500} fz={20}>
-                    Grace Ikpang
+                  <Text fw={500} fz={20} tt="capitalize">
+                    {data?.user}
                   </Text>
                   <Flex align="center" gap={10} mt={2}>
                     <Text fz={14}>Product designer</Text>
-                    <Text fz={14}>.May 25th, 2023</Text>
+                    <Text fz={14}>
+                      {dayjs(JSON.parse(data?.createdAt)).format(
+                        "MMMM D, YYYY"
+                      )}
+                    </Text>
                   </Flex>
                 </Flex>
               </Flex>
 
               <Box className={classes.cardImage} mt={20}>
                 <img
-                  src="https://rb.gy/d0tu3"
+                  src={data?.image}
                   alt="image"
                   className={classes.blogImage}
                 />
               </Box>
 
               <Box mb={10}>
-                <Text fw={600} fz={24} mt={10}>
-                  Starting out as a Product designer
+                <Text fw={600} fz={24} mt={10} tt="capitalize">
+                  {data?.title}
                 </Text>
                 <Flex align="center">
-                  <IconBook />
-                  <Text ml={5} fz={14}>
+                  <IconBook size={14} />
+                  <Text ml={5} fz={12}>
                     10 mins read
                   </Text>
                 </Flex>
               </Box>
               <Text fz={16} mt={20}>
-                Embarking on a journey as a product designer can be an
-                exhilarating and fulfilling experience. As a profession that
-                bridges the realms of art, technology, and problem-solving,
-                product design offers an opportunity to shape the way people
-                interact with the world around them. Embarking on a journey as a
-                product designer can be an exhilarating and fulfilling
-                experience. As a profession that bridges the realms of art,
-                technology, and problem-solving, product design offers an
-                opportunity to shape the way people interact with the world
-                around them. Embarking on a journey as a product designer can be
-                an exhilarating and fulfilling experience. As a profession that
-                bridges the realms of art, technology, and problem-solving,
-                product design offers an opportunity to shape the way people
-                interact with the world around them. Embarking on a journey as a
-                product designer can be an exhilarating and fulfilling
-                experience. As a profession that bridges the realms of art,
-                technology, and problem-solving, product design offers an
-                opportunity to shape the way people interact with the world
-                around them.
+                {data?.body}
               </Text>
             </Box>
             <Box mt={20}>
@@ -179,3 +178,44 @@ function SingleBlog() {
 }
 
 export default withLayout(SingleBlog, "Blog");
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { req } = ctx;
+  const id = ctx.params?.id;
+
+  if (!id) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+
+  let data = null;
+
+  try {
+    const docRef = doc(db, "blogs", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      data = docSnap.data();
+      data.createdAt = JSON.stringify(data.createdAt.toDate());
+    } else {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: { data },
+    };
+  } catch (error) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+};
