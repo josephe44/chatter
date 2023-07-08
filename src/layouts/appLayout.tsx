@@ -21,7 +21,7 @@ export default function withLayout(Component: ComponentType) {
       return unsubscribe;
     }, [user]);
 
-    if (!user) return null;
+    // if (!user) return null;
 
     return (
       <Fragment>

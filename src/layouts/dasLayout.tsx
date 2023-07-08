@@ -41,27 +41,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const actions: SpotlightAction[] = [
-  {
-    title: "Home",
-    description: "Get to home page",
-    onTrigger: () => console.log("Home"),
-    icon: <IconHome size="1.2rem" />,
-  },
-  {
-    title: "Dashboard",
-    description: "Get full information about current system status",
-    onTrigger: () => console.log("Dashboard"),
-    icon: <IconDashboard size="1.2rem" />,
-  },
-  {
-    title: "Documentation",
-    description: "Visit documentation to lean more about all features",
-    onTrigger: () => console.log("Documentation"),
-    icon: <IconFileText size="1.2rem" />,
-  },
-];
-
 const withLayout = (Component: ComponentType, pageName: string = "") => {
   function ApplicationShell(props: any) {
     const theme = useMantineTheme();
@@ -95,16 +74,7 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
         </>
       );
     return (
-      <SpotlightProvider
-        actions={actions}
-        searchIcon={<IconSearch size="1.2rem" />}
-        searchPlaceholder="Search..."
-        shortcut="shift + r"
-        nothingFoundMessage={
-          <Text>Search re:Current for &quot;{query}&quot;</Text>
-        }
-        onQueryChange={(q) => setQuery(q)}
-      >
+      <>
         <HeadMeta pageName={pageName} />
         <LoadingOverlay visible={visible} overlayBlur={2} />
         <AppShell
@@ -130,7 +100,7 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
         >
           <Component {...props} user={user} />
         </AppShell>
-      </SpotlightProvider>
+      </>
     );
   }
 

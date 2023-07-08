@@ -7,6 +7,7 @@ import {
   createStyles,
   rem,
 } from "@mantine/core";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -116,9 +117,11 @@ export function Hero() {
         </Container>
 
         <div className={classes.controls}>
-          <Button className={classes.control} size="xl" radius="md">
-            Get started
-          </Button>
+          <Link href="/dashboard">
+            <Button className={classes.control} size="xl" radius="md">
+              Get started
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

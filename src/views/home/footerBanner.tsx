@@ -9,6 +9,7 @@ import {
   Image,
 } from "@mantine/core";
 import FooterImage from "@/assets/footerImage.png";
+import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -124,14 +125,16 @@ export function FooterBanner() {
                   goals
                 </Text>
 
-                <Button
-                  className={cx(classes.control, classes.secondaryControl)}
-                  size="lg"
-                  radius="md"
-                  mt={30}
-                >
-                  Join chatter
-                </Button>
+                <Link href="/dashboard">
+                  <Button
+                    className={cx(classes.control, classes.secondaryControl)}
+                    size="lg"
+                    radius="md"
+                    mt={30}
+                  >
+                    Join chatter
+                  </Button>
+                </Link>
               </Grid.Col>
             </Grid>
           </div>
