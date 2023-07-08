@@ -46,7 +46,7 @@ function Dashboard({ data }: any) {
 
   const fetchRecentBlog = async () => {
     const listingRef = collection(db, "blogs");
-    const q = query(listingRef, orderBy("createdAt", "desc"), limit(1));
+    const q = query(listingRef, orderBy("createdAt", "desc"), limit(4));
     const querySnap = await getDocs(q);
 
     let blogs: any[] = [];

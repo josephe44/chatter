@@ -117,18 +117,26 @@ const useStyles = createStyles((theme) => ({
 
 const general = [
   { icon: IconSmartHome, label: "Feed", path: "/dashboard" },
-  { icon: IconSmartHome, label: "Bookmarks", path: "/" },
-  { icon: IconSmartHome, label: "Team blogs", path: "/" },
-  { icon: IconSmartHome, label: "Drafts", path: "/" },
-  { icon: IconSmartHome, label: "Analytics", path: "/" },
+  // { icon: IconSmartHome, label: "Bookmarks", path: "/" },
+  // { icon: IconSmartHome, label: "Team blogs", path: "/" },
+  // { icon: IconSmartHome, label: "Drafts", path: "/" },
+  // { icon: IconSmartHome, label: "Analytics", path: "/" },
 ];
 
 const payments = [
-  { icon: IconSmartHome, label: "Programming", path: "/" },
-  { icon: IconSmartHome, label: "Data science", path: "/" },
-  { icon: IconSmartHome, label: "Technology", path: "/" },
-  { icon: IconSmartHome, label: "Machine learning", path: "/" },
-  { icon: IconSmartHome, label: "Politics", path: "/" },
+  { icon: IconSmartHome, label: "Programming", path: `/tags/${"Programming"}` },
+  {
+    icon: IconSmartHome,
+    label: "Data science",
+    path: `/tags/${"data science"}`,
+  },
+  { icon: IconSmartHome, label: "Technology", path: `/tags/${"Technology"}` },
+  {
+    icon: IconSmartHome,
+    label: "Machine learning",
+    path: `/tags/${"Machine learning"}`,
+  },
+  { icon: IconSmartHome, label: "Politics", path: `/tags/${"Politics"}` },
 ];
 
 const account = [

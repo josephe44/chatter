@@ -100,7 +100,7 @@ function SingleBlog({ data }: any) {
     const commentData = {
       comment,
       user: data?.user,
-      createdAt: new Date(),
+      // createdAt: new Date(),
     };
 
     // @ts-ignore comment
