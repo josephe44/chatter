@@ -99,7 +99,13 @@ function BlogCard({ data, key, id }: any) {
                 </Text>
               </Flex>
             </Box>
-            <Text fz={16}>{getFirst50Words(data?.body)}</Text>
+            <Text fz={16}>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: getFirst50Words(data?.body),
+                }}
+              ></div>
+            </Text>
           </Box>
 
           <Box className={classes.cardImage} mt={20}>
@@ -110,7 +116,7 @@ function BlogCard({ data, key, id }: any) {
               <Flex align="center">
                 <IconBrandWechat />
                 <Text fz={14} ml={5}>
-                  {data?.comments.length}
+                  {data?.comments?.length}
                 </Text>
               </Flex>
               <Flex align="center">

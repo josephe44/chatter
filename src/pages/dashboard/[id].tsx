@@ -169,7 +169,9 @@ function SingleBlog({ data }: any) {
                 </Flex>
               </Box>
               <Text fz={16} mt={20}>
-                {data?.body}
+                {/* set the data.body markdown file in html */}
+                <div dangerouslySetInnerHTML={{ __html: data?.body }}></div>
+                {/* {data?.body} */}
               </Text>
             </Box>
             <Box mt={20}>
@@ -177,7 +179,7 @@ function SingleBlog({ data }: any) {
                 <Flex align="center">
                   <IconBrandWechat />
                   <Text fz={14} ml={5}>
-                    {data?.comments.length}
+                    {data?.comments?.length}
                   </Text>
                 </Flex>
                 <Box onClick={handleLikes} style={{ cursor: "pointer" }}>
@@ -204,7 +206,7 @@ function SingleBlog({ data }: any) {
             <Text fz={20} fw={600}>
               Comments
             </Text>
-            {data?.comments.length > 0 ? (
+            {data?.comment ? (
               data?.comments.map((comment: any, id: number) => (
                 <Box mt={10} key={id} ml={10}>
                   <Group>

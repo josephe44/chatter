@@ -20,6 +20,7 @@ import {
   MultiSelect,
   Select,
   LoadingOverlay,
+  Textarea,
 } from "@mantine/core";
 import { RichTextEditor } from "@mantine/tiptap";
 import { useEditor } from "@tiptap/react";
@@ -74,9 +75,11 @@ function NewBlog({ user }: any) {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Placeholder.configure({ placeholder: "This is placeholder" }),
+      Placeholder.configure({ placeholder: "Write a post..." }),
     ],
-    content: "",
+    onUpdate({ editor }) {
+      form.setFieldValue("body", editor.getHTML());
+    },
   });
   const [visible, setVisible] = useState(false);
   const [image, setImage] = useState<File | null>(null);
@@ -100,6 +103,7 @@ function NewBlog({ user }: any) {
 
   const handleSubmit = async () => {
     console.log(form.values);
+    // return;
     setVisible(true);
 
     try {
@@ -153,6 +157,7 @@ function NewBlog({ user }: any) {
         likes: 0,
         views: 0,
         createdAt: serverTimestamp(),
+        avatar: user?.photoURL,
       });
 
       router.push(`/dashboard/${docRef.id}`);
@@ -240,18 +245,25 @@ function NewBlog({ user }: any) {
                   }
                   fw="bolder"
                 />
-                {/* <RichTextEditor editor={editor}>
-                  <RichTextEditor.Content className={classes.textRich} />
-                </RichTextEditor> */}
-                <TextInput
+                <RichTextEditor
+                  editor={editor}
+                  sx={{ border: "none", backgroundColor: "#f8f9fa" }}
+                >
+                  <RichTextEditor.Content
+                    className={classes.textRich}
+                    sx={{ border: "none", backgroundColor: "#f8f9fa" }}
+                  />
+                </RichTextEditor>
+                {/* <Textarea
                   placeholder="Write a post..."
                   size="xl"
-                  variant="unstyled"
+                  variant="default"
+                  minRows={2}
                   value={form.values.body}
                   onChange={(event) =>
                     form.setFieldValue("body", event.currentTarget.value)
                   }
-                />
+                /> */}
               </Box>
             </Flex>
           </Box>
