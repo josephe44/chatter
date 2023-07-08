@@ -140,8 +140,8 @@ const payments = [
 ];
 
 const account = [
-  { icon: IconUser, label: "Account", notifications: 3, path: "/profile" },
-  { icon: IconSettings, label: "Notifications", path: "/settings" },
+  { icon: IconUser, label: "Account", notifications: 3, path: "/account" },
+  // { icon: IconSettings, label: "Notifications", path: "/settings" },
 ];
 
 const other = [{ icon: IconLogout, label: "Log Out" }];
