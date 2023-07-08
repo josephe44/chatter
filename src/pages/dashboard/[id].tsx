@@ -86,6 +86,7 @@ function SingleBlog({ data }: any) {
   //  update the likes and make it reflect on the UI without refreshing the page
 
   const handleLikes = async () => {
+    // @ts-ignore comment
     const blogRef = doc(db, "blogs", id);
     await updateDoc(blogRef, {
       likes: data?.likes + 1,
@@ -102,6 +103,7 @@ function SingleBlog({ data }: any) {
       createdAt: new Date(),
     };
 
+    // @ts-ignore comment
     const blogRef = doc(db, "blogs", id);
     await updateDoc(blogRef, {
       comments: [...data?.comments, commentData],
@@ -261,6 +263,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   let data = null;
 
   try {
+    // @ts-ignore comment
     const docRef = doc(db, "blogs", id);
     const docSnap = await getDoc(docRef);
 
@@ -274,6 +277,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
 
     // update the views and make it reflect on the UI without refreshing the page
+    // @ts-ignore comment
     const blogRef = doc(db, "blogs", id);
     await updateDoc(blogRef, {
       views: data?.views + 1,
