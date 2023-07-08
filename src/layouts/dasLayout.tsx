@@ -68,9 +68,9 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
     }, [router]);
     if (!user)
       return (
-        <Box bg="#543EE0" color="#fff" h="100vh" w="100%">
+        <Box bg="#fff" h="100vh" w="100%">
           <Box pos="absolute" top="50%" left="50%" ta="center">
-            <Text size="xl" fw={900} c="white">
+            <Text size="xl" fw={900} c="#543EE0">
               Chatter Blog
             </Text>
           </Box>
