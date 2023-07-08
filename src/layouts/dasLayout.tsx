@@ -9,6 +9,7 @@ import {
   createStyles,
   LoadingOverlay,
   Center,
+  Box,
 } from "@mantine/core";
 import { SpotlightProvider } from "@mantine/spotlight";
 import type { SpotlightAction } from "@mantine/spotlight";
@@ -67,11 +68,13 @@ const withLayout = (Component: ComponentType, pageName: string = "") => {
     }, [router]);
     if (!user)
       return (
-        <>
-          <Center>
-            <h1>Chatter</h1>
-          </Center>
-        </>
+        <Box bg="#543EE0" color="#fff" h="100vh" w="100%">
+          <Box pos="absolute" top="50%" left="50%" ta="center">
+            <Text size="xl" fw={900} c="white">
+              Chatter Blog
+            </Text>
+          </Box>
+        </Box>
       );
     return (
       <>
