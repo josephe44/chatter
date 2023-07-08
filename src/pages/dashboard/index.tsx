@@ -13,6 +13,7 @@ import {
   Text,
   createStyles,
   rem,
+  Loader,
 } from "@mantine/core";
 import Link from "next/link";
 import { IconPencil } from "@tabler/icons-react";
@@ -43,6 +44,8 @@ const useStyles = createStyles((theme) => ({
 function Dashboard({ data }: any) {
   const { classes, theme } = useStyles();
   const [recentBlog, setRecentBlog] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [loading2, setLoading2] = useState<boolean>(true);
 
   const fetchRecentBlog = async () => {
     const listingRef = collection(db, "blogs");
@@ -58,6 +61,7 @@ function Dashboard({ data }: any) {
       });
     });
     setRecentBlog(blogs);
+    setLoading(false);
     // setLoading(false);
   };
 
@@ -120,10 +124,19 @@ function Dashboard({ data }: any) {
           </Tabs.Panel>
 
           <Tabs.Panel value="Featured" pt="xs">
-            something here
+            {loading2 && (
+              <Flex align="center" justify="center" style={{ height: "50vh" }}>
+                <Loader size={40} />
+              </Flex>
+            )}
           </Tabs.Panel>
 
           <Tabs.Panel value="Recent" pt="xs">
+            {loading && (
+              <Flex align="center" justify="center" style={{ height: "50vh" }}>
+                <Loader size={40} />
+              </Flex>
+            )}
             <SimpleGrid
               cols={1}
               breakpoints={[{ maxWidth: "sm", cols: 1 }]}
