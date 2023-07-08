@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import withLayout from "@/layouts/dasLayout";
 import { GetServerSideProps } from "next";
 import HeadMeta from "@/components/head";
@@ -42,6 +42,24 @@ const useStyles = createStyles((theme) => ({
 
 function Dashboard({ data }: any) {
   const { classes, theme } = useStyles();
+  const [recentBlog, setRecentBlog] = useState<any>([]);
+
+  const fetchRecentBlog = async () => {
+    const listingRef = collection(db, "blogs");
+    const q = query(listingRef, orderBy("createdAt", "desc"), limit(1));
+    const querySnap = await getDocs(q);
+
+    let blogs: any[] = [];
+
+    querySnap.forEach((doc) => {
+      return blogs.push({
+        id: doc.id,
+        data: doc.data(),
+      });
+    });
+    setRecentBlog(blogs);
+    // setLoading(false);
+  };
 
   return (
     <Fragment>
@@ -74,7 +92,7 @@ function Dashboard({ data }: any) {
                 <Tabs.Tab value="Featured">
                   <Text fw={600}>Featured</Text>
                 </Tabs.Tab>
-                <Tabs.Tab value="Recent">
+                <Tabs.Tab value="Recent" onClick={fetchRecentBlog}>
                   <Text fw={600}>Recent</Text>
                 </Tabs.Tab>
               </Flex>
@@ -102,11 +120,21 @@ function Dashboard({ data }: any) {
           </Tabs.Panel>
 
           <Tabs.Panel value="Featured" pt="xs">
-            Messages tab content
+            something here
           </Tabs.Panel>
 
           <Tabs.Panel value="Recent" pt="xs">
-            Settings tab content
+            <SimpleGrid
+              cols={1}
+              breakpoints={[{ maxWidth: "sm", cols: 1 }]}
+              spacing={0}
+            >
+              <Card p={0}>
+                {recentBlog.map((item: any) => (
+                  <BlogCard key={item?.id} id={item.id} data={item.data} />
+                ))}
+              </Card>
+            </SimpleGrid>
           </Tabs.Panel>
         </Tabs>
       </Container>
